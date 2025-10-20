@@ -2,8 +2,6 @@
 #include <fstream>
 #include <string>
 using namespace std;
-
-// ------------------ Member 1 ------------------
 class Student {
 public:
     int roll;
@@ -93,8 +91,6 @@ public:
         if (!found) cout << "Student not found.\n";
     }
 };
-
-// ------------------ Member 3 ------------------
 class StudentManager {
 public:
     FileHandler file;
@@ -125,6 +121,40 @@ public:
     }
     void viewAll() { file.displayAll(); }
     void viewByRoll() { int roll; cout << "Enter Roll: "; cin >> roll; file.viewByRoll(roll); }
+};
+class Interface {
+public:
+    void menu() {
+        StudentManager sm;
+        SearchAndSort ss;
+        int ch;
+        while (true) {
+            cout << "\n==== Student Record System ====\n";
+            cout << "1. Add Student\n";
+            cout << "2. View All Students\n";
+            cout << "3. View Student by Roll\n";
+            cout << "4. Update Student\n";
+            cout << "5. Delete Student\n";
+            cout << "6. Search by Name\n";
+            cout << "7. Search by Department\n";
+            cout << "8. Sort by Roll\n";
+            cout << "9. Sort by GPA\n";
+            cout << "10. Exit\n";
+            cout << "Enter choice: ";
+            cin >> ch;
+            if (ch==1) sm.addStudent();
+            else if (ch==2) sm.viewAll();
+            else if (ch==3) sm.viewByRoll();
+            else if (ch==4) sm.updateStudent();
+            else if (ch==5) sm.deleteStudent();
+            else if (ch==6) { string n; cout<<"Enter Name: "; cin>>n; ss.searchByName(n); }
+            else if (ch==7) { string d; cout<<"Enter Department: "; cin>>d; ss.searchByDepartment(d); }
+            else if (ch==8) ss.sortByRoll();
+            else if (ch==9) ss.sortByGPA();
+            else if (ch==10) break;
+            else cout << "Invalid choice.\n";
+        }
+    }
 };
 int main() {
     Interface i;
