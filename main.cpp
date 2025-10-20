@@ -156,6 +156,70 @@ public:
         }
     }
 };
+class SearchAndSort {
+public:
+    void searchByName(string name) {
+        ifstream fin("students.txt");
+        Student s; bool found=false;
+        while (fin >> s.roll >> s.name >> s.department >> s.gpa >> s.contact) {
+            if (s.name == name) {
+                cout << "Roll: " << s.roll << ", Name: " << s.name
+                     << ", Dept: " << s.department << ", GPA: " << s.gpa
+                     << ", Contact: " << s.contact << endl;
+                found=true;
+            }
+        }
+        fin.close();
+        if (!found) cout << "No record found.\n";
+    }
+
+    void searchByDepartment(string dept) {
+        ifstream fin("students.txt");
+        Student s; bool found=false;
+        while (fin >> s.roll >> s.name >> s.department >> s.gpa >> s.contact) {
+            if (s.department == dept) {
+                cout << "Roll: " << s.roll << ", Name: " << s.name
+                     << ", Dept: " << s.department << ", GPA: " << s.gpa
+                     << ", Contact: " << s.contact << endl;
+                found=true;
+            }
+        }
+        fin.close();
+        if (!found) cout << "No student in that department.\n";
+    }
+
+    void sortByRoll() {
+        Student arr[100]; int n=0;
+        ifstream fin("students.txt");
+        while (fin >> arr[n].roll >> arr[n].name >> arr[n].department >> arr[n].gpa >> arr[n].contact)
+            n++;
+        fin.close();
+        for (int i=0;i<n-1;i++)
+            for (int j=i+1;j<n;j++)
+                if (arr[i].roll > arr[j].roll)
+                    swap(arr[i], arr[j]);
+        cout << "\nSorted by Roll:\n";
+        for (int i=0;i<n;i++)
+            cout << arr[i].roll << " " << arr[i].name << " " << arr[i].department
+                 << " " << arr[i].gpa << " " << arr[i].contact << endl;
+    }
+
+    void sortByGPA() {
+        Student arr[100]; int n=0;
+        ifstream fin("students.txt");
+        while (fin >> arr[n].roll >> arr[n].name >> arr[n].department >> arr[n].gpa >> arr[n].contact)
+            n++;
+        fin.close();
+        for (int i=0;i<n-1;i++)
+            for (int j=i+1;j<n;j++)
+                if (arr[i].gpa < arr[j].gpa)
+                    swap(arr[i], arr[j]);
+        cout << "\nSorted by GPA:\n";
+        for (int i=0;i<n;i++)
+            cout << arr[i].roll << " " << arr[i].name << " " << arr[i].department
+                 << " " << arr[i].gpa << " " << arr[i].contact << endl;
+    }
+};
 int main() {
     Interface i;
     i.menu();
